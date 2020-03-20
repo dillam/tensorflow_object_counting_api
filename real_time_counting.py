@@ -23,7 +23,7 @@ detection_graph, category_index = backbone.set_model('ssd_mobilenet_v1_coco_2018
 
 targeted_objects = "person" # (for counting targeted objects) change it with your targeted objects
 is_color_recognition_enabled = 0
-
+write_csv = True # Use True is you want the result of the count to be printed to a csv file
 #object_counting_api.targeted_object_counting(input_video, detection_graph, category_index, is_color_recognition_enabled, targeted_objects, fps, width, height) # targeted objects counting
 
-object_counting_api.object_counting(input_video, detection_graph, category_index, is_color_recognition_enabled) # counting all the objects
+object_counting_api.object_counting(input_video, detection_graph, category_index, is_color_recognition_enabled, write_csv) # counting all the objects

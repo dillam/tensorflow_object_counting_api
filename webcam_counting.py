@@ -15,5 +15,6 @@ from api import object_counting_api
 detection_graph, category_index = backbone.set_model('ssd_mobilenet_v1_coco_2018_01_28', 'mscoco_label_map.pbtxt')
 
 is_color_recognition_enabled = 0
+write_csv = True # Use True to write outputs to csv file
 
-object_counting_api.object_counting_webcam(detection_graph, category_index, is_color_recognition_enabled)
+object_counting_api.object_counting_webcam(detection_graph, category_index, is_color_recognition_enabled, write_csv)
