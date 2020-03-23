@@ -7,6 +7,7 @@
 import tensorflow as tf
 import csv
 import cv2
+import time
 import numpy as np
 from utils import visualization_utils as vis_util
 
@@ -258,6 +259,7 @@ def object_counting(input_video, detection_graph, category_index, is_color_recog
         width_heigh_taken = True
         height = 0
         width = 0
+        start_time = time.time()
         with detection_graph.as_default():
           with tf.Session(graph=detection_graph) as sess:
             # Definite input and output Tensors for detection_graph
@@ -272,9 +274,11 @@ def object_counting(input_video, detection_graph, category_index, is_color_recog
             detection_classes = detection_graph.get_tensor_by_name('detection_classes:0')
             num_detections = detection_graph.get_tensor_by_name('num_detections:0')
 
-            # for all the frames that are extracted from input video
+            # Creates csv writer and csv file objects
             with open('output.csv', 'a') as csv_file:
                 csv_writer = csv.writer(csv_file)
+
+                # for all the frames that are extracted from input video
                 while(cap.isOpened()):
                     ret, frame = cap.read()
 
@@ -311,13 +315,17 @@ def object_counting(input_video, detection_graph, category_index, is_color_recog
                     else:
                         cv2.putText(input_frame, counting_mode, (10, 35), font, 0.8, (0,255,255),2,cv2.FONT_HERSHEY_SIMPLEX)
 
-                    if write_csv:
+                    if write_csv: # writes output to csv if write_csv is True
+                        current_time = time.time() - start_time
+                        str_time = str(current_time)
                         csv_line = counting_mode.split(", ")
+                        csv_line.insert(0, str_time)
+                        # print(csv_line)
                         csv_writer.writerow(csv_line)
 
                     output_movie.write(input_frame)
                     print ("writing frame")
-                    #cv2.imshow('object counting',input_frame)
+                    cv2.imshow('object counting',input_frame)
 
                     if cv2.waitKey(1) & 0xFF == ord('q'):
                             break
