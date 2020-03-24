@@ -344,6 +344,7 @@ def object_counting_webcam(detection_graph, category_index, is_color_recognition
         width_heigh_taken = True
         height = 0
         width = 0
+        start_time = time.time()
         with detection_graph.as_default():
           with tf.Session(graph=detection_graph) as sess:
             # Definite input and output Tensors for detection_graph
@@ -361,9 +362,10 @@ def object_counting_webcam(detection_graph, category_index, is_color_recognition
             cap = cv2.VideoCapture(0)
             (ret, frame) = cap.read()
 
-            # for all the frames that are extracted from input video
+            # Creates csv file object and csv writer object
             with open('output.csv', 'a') as csv_file:
                 csv_writer = csv.writer(csv_file)
+                # for all the frames that are extracted from input video
                 while True:
                     # Capture frame-by-frame
                     (ret, frame) = cap.read()
@@ -401,8 +403,13 @@ def object_counting_webcam(detection_graph, category_index, is_color_recognition
                     else:
                         cv2.putText(input_frame, counting_mode, (10, 35), font, 0.8, (0,255,255),2,cv2.FONT_HERSHEY_SIMPLEX)
 
+                    # Writes ouput to csv file
                     if write_csv:
+                        current_time = time.time() - start_time
+                        str_time = str(current_time)
                         csv_line = counting_mode.split(", ")
+                        csv_line.insert(0, str_time)
+                        # print(csv_line)
                         csv_writer.writerow(csv_line)
 
                     cv2.imshow('object counting',input_frame)
@@ -434,6 +441,7 @@ def targeted_object_counting(input_video, detection_graph, category_index, is_co
         width_heigh_taken = True
         height = 0
         width = 0
+        start_time = time.time()
         with detection_graph.as_default():
           with tf.Session(graph=detection_graph) as sess:
             # Definite input and output Tensors for detection_graph
@@ -488,8 +496,13 @@ def targeted_object_counting(input_video, detection_graph, category_index, is_co
                     else:
                         cv2.putText(input_frame, the_result, (10, 35), font, 0.8, (0,255,255),2,cv2.FONT_HERSHEY_SIMPLEX)
 
+                    # Writes ouput to csv file
                     if write_csv:
-                        csv_line = the_result.split(", ")
+                        current_time = time.time() - start_time
+                        str_time = str(current_time)
+                        csv_line = counting_mode.split(", ")
+                        csv_line.insert(0, str_time)
+                        # print(csv_line)
                         csv_writer.writerow(csv_line)
 
                     #cv2.imshow('object counting',input_frame)
