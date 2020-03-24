@@ -325,7 +325,7 @@ def object_counting(input_video, detection_graph, category_index, is_color_recog
 
                     output_movie.write(input_frame)
                     print ("writing frame")
-                    cv2.imshow('object counting',input_frame)
+                    # cv2.imshow('object counting',input_frame)
 
                     if cv2.waitKey(1) & 0xFF == ord('q'):
                             break

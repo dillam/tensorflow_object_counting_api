@@ -235,8 +235,8 @@ def draw_bounding_box_on_image(current_frame_number,image,
     predicted_direction, is_vehicle_detected, update_csv = object_counter.count_objects(top, bottom, right, left, detected_vehicle_image, ROI_POSITION[0], ROI_POSITION[0]+DEVIATION[0], ROI_POSITION[0]+(DEVIATION[0]*2), DEVIATION[0])
 
   if(1 in is_color_recognition_enable):
-    predicted_color = color_recognition_api.color_recognition(detected_vehicle_image)    
-  
+    predicted_color = color_recognition_api.color_recognition(detected_vehicle_image)
+
   try:
     font = ImageFont.truetype('arial.ttf', 16)
   except IOError:
@@ -251,7 +251,7 @@ def draw_bounding_box_on_image(current_frame_number,image,
   else:
     display_str_list[0] = display_str_list[0]
     csv_line = str (predicted_direction) # csv line created
-  
+
   display_str_heights = [font.getsize(ds)[1] for ds in display_str_list]
 
   # Each display_str has a top and bottom margin of 0.05x.
@@ -337,7 +337,7 @@ def draw_bounding_boxes_on_image(image,
     display_str_list = ()
     if display_str_list_list:
       display_str_list = display_str_list_list[i]
-    
+
     draw_bounding_box_on_image(image, boxes[i, 0], boxes[i, 1], boxes[i, 2],
                                boxes[i, 3], color, thickness, display_str_list)
 
@@ -475,7 +475,7 @@ def visualize_boxes_and_labels_on_image_array(current_frame_number,
                                               classes,
                                               scores,
                                               category_index,
-					      targeted_objects=None,
+					                          targeted_objects=None,
                                               y_reference=None,
                                               deviation=None,
                                               instance_masks=None,
@@ -546,12 +546,12 @@ def visualize_boxes_and_labels_on_image_array(current_frame_number,
       else:
         if not agnostic_mode:
           if classes[i] in category_index.keys():
-            class_name = category_index[classes[i]]['name']        
+            class_name = category_index[classes[i]]['name']
           else:
-            class_name = 'N/A'              
+            class_name = 'N/A'
           display_str = '{}: {}%'.format(class_name,int(100*scores[i]))
         else:
-          display_str = 'score: {}%'.format(int(100 * scores[i]))        
+          display_str = 'score: {}%'.format(int(100 * scores[i]))
 
         box_to_display_str_map[box].append(display_str)
         if agnostic_mode:
@@ -571,7 +571,7 @@ def visualize_boxes_and_labels_on_image_array(current_frame_number,
           box_to_instance_masks_map[box],
           color=color
       )'''
-        
+
     display_str_list=box_to_display_str_map[box]
 
     if(mode == 1 and targeted_objects == None):
@@ -583,7 +583,7 @@ def visualize_boxes_and_labels_on_image_array(current_frame_number,
     if ((targeted_objects != None) and (display_str_list[0].split(":")[0] in targeted_objects)):
             if instance_masks is not None:
               draw_mask_on_image_array(image, box_to_instance_masks_map[box], color=color)
-        
+
             is_vehicle_detected, csv_line, update_csv = draw_bounding_box_on_image_array(current_frame_number,
                 image,
                 ymin,
@@ -593,8 +593,8 @@ def visualize_boxes_and_labels_on_image_array(current_frame_number,
                 color=color,
                 thickness=line_thickness,
                 display_str_list=box_to_display_str_map[box],
-                use_normalized_coordinates=use_normalized_coordinates) 
-      
+                use_normalized_coordinates=use_normalized_coordinates)
+
             if keypoints is not None:
               draw_keypoints_on_image_array(
                   image,
@@ -616,8 +616,8 @@ def visualize_boxes_and_labels_on_image_array(current_frame_number,
                 color=color,
                 thickness=line_thickness,
                 display_str_list=box_to_display_str_map[box],
-                use_normalized_coordinates=use_normalized_coordinates) 
-      
+                use_normalized_coordinates=use_normalized_coordinates)
+
             if keypoints is not None:
               draw_keypoints_on_image_array(
                   image,
@@ -629,8 +629,8 @@ def visualize_boxes_and_labels_on_image_array(current_frame_number,
   if(1 in is_vehicle_detected):
         counter = 1
         del is_vehicle_detected[:]
-        is_vehicle_detected = []        
-        csv_line_util = class_name + "," + csv_line 
+        is_vehicle_detected = []
+        csv_line_util = class_name + "," + csv_line
 
   if(mode == 1):
     counting_mode = counting_mode.replace("['", " ").replace("']", " ").replace("%", "")
@@ -722,12 +722,12 @@ def visualize_boxes_and_labels_on_image_array_x_axis(current_frame_number,
       else:
         if not agnostic_mode:
           if classes[i] in category_index.keys():
-            class_name = category_index[classes[i]]['name']        
+            class_name = category_index[classes[i]]['name']
           else:
-            class_name = 'N/A'              
+            class_name = 'N/A'
           display_str = '{}: {}%'.format(class_name,int(100*scores[i]))
         else:
-          display_str = 'score: {}%'.format(int(100 * scores[i]))        
+          display_str = 'score: {}%'.format(int(100 * scores[i]))
 
         box_to_display_str_map[box].append(display_str)
         if agnostic_mode:
@@ -747,7 +747,7 @@ def visualize_boxes_and_labels_on_image_array_x_axis(current_frame_number,
           box_to_instance_masks_map[box],
           color=color
       )'''
-        
+
     display_str_list=box_to_display_str_map[box]
 
     if(mode == 1 and targeted_objects == None):
@@ -759,7 +759,7 @@ def visualize_boxes_and_labels_on_image_array_x_axis(current_frame_number,
     if ((targeted_objects != None) and (targeted_objects in display_str_list[0])):
             if instance_masks is not None:
               draw_mask_on_image_array(image, box_to_instance_masks_map[box], color=color)
-        
+
             is_vehicle_detected, csv_line, update_csv = draw_bounding_box_on_image_array(current_frame_number,
                 image,
                 ymin,
@@ -769,8 +769,8 @@ def visualize_boxes_and_labels_on_image_array_x_axis(current_frame_number,
                 color=color,
                 thickness=line_thickness,
                 display_str_list=box_to_display_str_map[box],
-                use_normalized_coordinates=use_normalized_coordinates) 
-      
+                use_normalized_coordinates=use_normalized_coordinates)
+
             if keypoints is not None:
               draw_keypoints_on_image_array(
                   image,
@@ -792,8 +792,8 @@ def visualize_boxes_and_labels_on_image_array_x_axis(current_frame_number,
                 color=color,
                 thickness=line_thickness,
                 display_str_list=box_to_display_str_map[box],
-                use_normalized_coordinates=use_normalized_coordinates) 
-      
+                use_normalized_coordinates=use_normalized_coordinates)
+
             if keypoints is not None:
               draw_keypoints_on_image_array(
                   image,
@@ -805,8 +805,8 @@ def visualize_boxes_and_labels_on_image_array_x_axis(current_frame_number,
   if(1 in is_vehicle_detected):
         counter = 1
         del is_vehicle_detected[:]
-        is_vehicle_detected = []        
-        csv_line_util = class_name + "," + csv_line 
+        is_vehicle_detected = []
+        csv_line_util = class_name + "," + csv_line
 
   if(mode == 1):
     counting_mode = counting_mode.replace("['", " ").replace("']", " ").replace("%", "")
@@ -898,12 +898,12 @@ def visualize_boxes_and_labels_on_image_array_y_axis(current_frame_number,
       else:
         if not agnostic_mode:
           if classes[i] in category_index.keys():
-            class_name = category_index[classes[i]]['name']             
+            class_name = category_index[classes[i]]['name']
           else:
-            class_name = 'N/A'              
+            class_name = 'N/A'
           display_str = '{}: {}%'.format(class_name,int(100*scores[i]))
         else:
-          display_str = 'score: {}%'.format(int(100 * scores[i]))        
+          display_str = 'score: {}%'.format(int(100 * scores[i]))
 
         box_to_display_str_map[box].append(display_str)
         if agnostic_mode:
@@ -923,7 +923,7 @@ def visualize_boxes_and_labels_on_image_array_y_axis(current_frame_number,
           box_to_instance_masks_map[box],
           color=color
       )'''
-        
+
     display_str_list=box_to_display_str_map[box]
 
     if(mode == 2 and targeted_objects == None):
@@ -935,7 +935,7 @@ def visualize_boxes_and_labels_on_image_array_y_axis(current_frame_number,
     if ((targeted_objects != None) and (targeted_objects in display_str_list[0])):
 	    if instance_masks is not None:
 	      draw_mask_on_image_array(image, box_to_instance_masks_map[box], color=color)
-	
+
 	    is_vehicle_detected, csv_line, update_csv = draw_bounding_box_on_image_array(current_frame_number,
 	        image,
 	        ymin,
@@ -945,8 +945,8 @@ def visualize_boxes_and_labels_on_image_array_y_axis(current_frame_number,
 	        color=color,
 	        thickness=line_thickness,
 	        display_str_list=box_to_display_str_map[box],
-	        use_normalized_coordinates=use_normalized_coordinates) 
-      
+	        use_normalized_coordinates=use_normalized_coordinates)
+
 	    if keypoints is not None:
 	      draw_keypoints_on_image_array(
 	          image,
@@ -968,8 +968,8 @@ def visualize_boxes_and_labels_on_image_array_y_axis(current_frame_number,
 	        color=color,
 	        thickness=line_thickness,
 	        display_str_list=box_to_display_str_map[box],
-	        use_normalized_coordinates=use_normalized_coordinates) 
-      
+	        use_normalized_coordinates=use_normalized_coordinates)
+
 	    if keypoints is not None:
 	      draw_keypoints_on_image_array(
 	          image,
@@ -981,8 +981,8 @@ def visualize_boxes_and_labels_on_image_array_y_axis(current_frame_number,
   if(1 in is_vehicle_detected):
         counter = 1
         del is_vehicle_detected[:]
-        is_vehicle_detected = []                
-        csv_line_util = class_name + "," + csv_line 
+        is_vehicle_detected = []
+        csv_line_util = class_name + "," + csv_line
 
   if(mode == 2):
     counting_mode = counting_mode.replace("['", " ").replace("']", " ").replace("%", "")
@@ -1208,12 +1208,12 @@ def visualize_boxes_and_labels_on_single_image_array(current_frame_number,
       else:
         if not agnostic_mode:
           if classes[i] in category_index.keys():
-            class_name = category_index[classes[i]]['name']        
+            class_name = category_index[classes[i]]['name']
           else:
-            class_name = 'N/A'              
+            class_name = 'N/A'
           display_str = '{}: {}%'.format(class_name,int(100*scores[i]))
         else:
-          display_str = 'score: {}%'.format(int(100 * scores[i]))        
+          display_str = 'score: {}%'.format(int(100 * scores[i]))
 
         box_to_display_str_map[box].append(display_str)
         if agnostic_mode:
@@ -1233,7 +1233,7 @@ def visualize_boxes_and_labels_on_single_image_array(current_frame_number,
           box_to_instance_masks_map[box],
           color=color
       )'''
-        
+
     display_str_list=box_to_display_str_map[box]
 
     if(mode == 1 and targeted_objects == None):
@@ -1245,7 +1245,7 @@ def visualize_boxes_and_labels_on_single_image_array(current_frame_number,
     if ((targeted_objects != None) and (targeted_objects in display_str_list[0])):
             if instance_masks is not None:
               draw_mask_on_image_array(image, box_to_instance_masks_map[box], color=color)
-        
+
             is_vehicle_detected, csv_line, update_csv = draw_bounding_box_on_image_array(current_frame_number,
                 image,
                 ymin,
@@ -1255,8 +1255,8 @@ def visualize_boxes_and_labels_on_single_image_array(current_frame_number,
                 color=color,
                 thickness=line_thickness,
                 display_str_list=box_to_display_str_map[box],
-                use_normalized_coordinates=use_normalized_coordinates) 
-      
+                use_normalized_coordinates=use_normalized_coordinates)
+
             if keypoints is not None:
               draw_keypoints_on_image_array(
                   image,
@@ -1278,8 +1278,8 @@ def visualize_boxes_and_labels_on_single_image_array(current_frame_number,
                 color=color,
                 thickness=line_thickness,
                 display_str_list=box_to_display_str_map[box],
-                use_normalized_coordinates=use_normalized_coordinates) 
-      
+                use_normalized_coordinates=use_normalized_coordinates)
+
             if keypoints is not None:
               draw_keypoints_on_image_array(
                   image,
@@ -1291,8 +1291,8 @@ def visualize_boxes_and_labels_on_single_image_array(current_frame_number,
   if(1 in is_vehicle_detected):
         counter = 1
         del is_vehicle_detected[:]
-        is_vehicle_detected = []        
-        csv_line_util = class_name + "," + csv_line 
+        is_vehicle_detected = []
+        csv_line_util = class_name + "," + csv_line
 
   if(mode == 1):
     counting_mode = counting_mode.replace("['", " ").replace("']", " ").replace("%", "")
@@ -1334,4 +1334,3 @@ def add_cdf_image_summary(values, name):
     return image
   cdf_plot = tf.py_func(cdf_plot, [values], tf.uint8)
   tf.summary.image(name, cdf_plot)
-
